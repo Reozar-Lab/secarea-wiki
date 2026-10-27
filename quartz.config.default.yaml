@@ -2,7 +2,7 @@
 configuration:
   pageTitle: 内界档案库
   pageTitleSuffix: " | Secarea"
-  enableSPA: true
+  enableSPA: false
   enablePopovers: true
   analytics: null
   locale: zh-CN
