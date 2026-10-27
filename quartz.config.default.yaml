@@ -1,13 +1,12 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-  pageTitle: Quartz 5
-  pageTitleSuffix: ""
+  pageTitle: 内界档案库
+  pageTitleSuffix: " | Secarea"
   enableSPA: true
   enablePopovers: true
-  analytics:
-    provider: plausible
-  locale: en-US
-  baseUrl: quartz.jzhao.xyz
+  analytics: null
+  locale: zh-CN
+  baseUrl: secarea.de5.net/wiki
   ignorePatterns:
     - private
     - templates
@@ -21,24 +20,24 @@ configuration:
       code: IBM Plex Mono
     colors:
       lightMode:
-        light: "#faf8f8"
-        lightgray: "#e5e5e5"
+        light: "#ffffff"       # 明亮背景
+        lightgray: "#e5e5e5"   # 明亮边框
         gray: "#b8b8b8"
-        darkgray: "#4e4e4e"
-        dark: "#2b2b2b"
-        secondary: "#284b63"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
+        darkgray: "#4e4e4e"    # 明亮正文
+        dark: "#111111"        # 明亮标题
+        secondary: "#c89f5d"   # 金色链接
+        tertiary: "#e8c88c"
+        highlight: rgba(200, 159, 93, 0.15)
         textHighlight: "#fff23688"
       darkMode:
-        light: "#161618"
-        lightgray: "#393639"
-        gray: "#646464"
-        darkgray: "#d4d4d4"
-        dark: "#ebebec"
-        secondary: "#7b97aa"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
+        light: "#141414"       # 暗黑背景 (深邃黑)
+        lightgray: "#333333"   # 暗黑边框
+        gray: "#666666"
+        darkgray: "#d4d4d4"    # 暗黑正文
+        dark: "#f5d78d"        # 暗黑标题 (金色)
+        secondary: "#f5d78d"   # 暗黑链接 (金色)
+        tertiary: "#e8c88c"
+        highlight: rgba(245, 215, 141, 0.15)
         textHighlight: "#b3aa0288"
 plugins:
   - source: "@quartz-community/created-modified-date"
@@ -203,8 +202,7 @@ plugins:
     enabled: true
     options:
       links:
-        GitHub: https://github.com/jackyzha0/quartz
-        Discord Community: https://discord.gg/cRFFHYye7t
+        Secarea 主站: https://secarea.de5.net
     layout:
       position: footer
       priority: 50
