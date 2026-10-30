@@ -1,7 +1,17 @@
 /* =========================================
-   1. 干掉青框（手机端左侧栏的汉堡菜单）
+   1. 彻底移除 Wiki 自带的多余 header 和留白
    ========================================= */
-/* 在移动端，直接隐藏整个左侧边栏，不再显示顶部那个 ☰ 按钮 */
+header {
+  display: none !important;
+}
+#quartz-body {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* =========================================
+   2. 左侧栏在移动端隐藏（去掉多余的汉堡菜单）
+   ========================================= */
 @media (max-width: 800px) {
   .sidebar.left {
     display: none !important;
@@ -9,32 +19,35 @@
 }
 
 /* =========================================
-   2. 重排红框（搜索、图标排一行，标题排下面）
+   3. 工具栏重排：搜索、图标排一行，标题排下面
    ========================================= */
 .beforeBody {
   display: flex !important;
-  flex-direction: row !important;
   flex-wrap: wrap !important;
   align-items: center !important;
-  justify-content: flex-start !important;
   gap: 12px !important;
-  padding: 1rem 0 !important;
+  padding: 1rem 1.5rem !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* 让所有的直接子元素不要默认拉伸 */
-.beforeBody > * {
-  flex: 0 0 auto !important;
-}
-
-/* 限制搜索框宽度，让它不要独占整行，从而让右边的图标跟上来 */
+/* 核心调整：搜索框占满剩余空间，但不独占整行，让出位置给右侧图标 */
 .beforeBody > .search,
 .beforeBody .search-container {
-  flex: 0 1 150px !important; 
-  max-width: 150px !important;
+  flex: 1 1 150px !important; 
+  max-width: 250px !important; 
 }
 
-/* 强制文章标题和日期换行，占据 100% 宽度，排在工具栏下面 */
+/* 暗黑模式与阅读模式图标：固定大小，不换行 */
+.beforeBody > .darkmode,
+.beforeBody > .readermode,
+.beforeBody .darkmode,
+.beforeBody .readermode {
+  flex: 0 0 auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+/* 强制文章标题和日期换行，占据整行，排在工具栏正下方 */
 .beforeBody > .article-title,
 .beforeBody > .content-meta,
 .beforeBody .article-title,
@@ -44,7 +57,9 @@
   margin-top: 0.5rem !important;
 }
 
-/* 优化一下图标颜色 */
+/* =========================================
+   4. 图标颜色与 Hover 效果（适配黑金主题）
+   ========================================= */
 .beforeBody svg, 
 .beforeBody button {
   color: #f5d78d !important;
@@ -55,11 +70,10 @@
 .beforeBody button:hover {
   opacity: 1;
 }
-
-/* =========================================
-   3. 抹平顶部多余留白
-   ========================================= */
-#quartz-body {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
+:root[saved-theme="light"] .beforeBody svg, 
+:root[saved-theme="light"] .beforeBody button {
+  color: #c89f5d !important;
+}
+:root[saved-theme="light"] .beforeBody {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
