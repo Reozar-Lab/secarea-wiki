@@ -1,34 +1,59 @@
 /* =========================================
-   1. 彻底移除顶部自带的 header
+   1. 彻底移除真·header（兜底）
    ========================================= */
 header {
   display: none !important;
 }
 
 /* =========================================
-   2. 美化正文前的工具栏 (beforeBody)
+   2. 去除青框（移动端左侧栏顶部触发区/汉堡菜单）
    ========================================= */
+/* 隐藏移动端左栏的触发按钮、占位符、以及可能的标题 */
+.sidebar.left > button,
+.sidebar.left > .explorer > button,
+.sidebar.left > .explorer > .mobile-only,
+.sidebar.left > .spacer {
+  display: none !important;
+}
+
+/* =========================================
+   3. 重排红框内容（保留搜索、暗黑、阅读、标题）
+   ========================================= */
+/* 将 beforeBody 设为弹性布局，允许换行 */
 .beforeBody {
   display: flex !important;
-  flex-direction: row !important;
+  flex-wrap: wrap !important;
   align-items: center !important;
-  gap: 20px !important;
-  padding: 1.2rem 1.5rem !important;
+  gap: 12px !important;
+  padding: 1rem 1.5rem !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+/* 限制搜索框宽度，让它不要独占一行，从而让右边的图标能跟上 */
+.beforeBody .search {
+  flex: 1 1 150px !important;
+  max-width: 250px !important; 
+}
+
+/* 暗黑模式和阅读模式的按钮容器 */
+.beforeBody .darkmode,
+.beforeBody .readermode {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* 图标颜色与 Hover 效果（适配你的黑金主题） */
 .beforeBody svg, 
 .beforeBody button {
   color: #f5d78d !important;
   opacity: 0.8;
   transition: opacity 0.2s;
 }
-
 .beforeBody svg:hover, 
 .beforeBody button:hover {
   opacity: 1;
 }
-
 :root[saved-theme="light"] .beforeBody svg, 
 :root[saved-theme="light"] .beforeBody button {
   color: #c89f5d !important;
@@ -37,37 +62,23 @@ header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
+/* 强制文章标题和日期换行，占据 100% 宽度，排在按钮下面 */
+.beforeBody .article-title,
+.beforeBody .content-meta {
+  flex: 1 1 100% !important;
+  width: 100% !important;
+  margin-top: 0.5rem !important;
+}
+
 /* =========================================
-   3. 取消正文顶部的留白
+   4. 取消正文顶部的多余留白
    ========================================= */
 #quartz-body {
   margin-top: 0 !important;
   padding-top: 0 !important;
 }
 
-/* =========================================
-   4. 【诊断用】红框标记，定位完请删除本段
-   ========================================= */
-header,
-.page-header,
-#quartz-body > header,
-#quartz-body > .page-header,
-.beforeBody,
-#quartz-body > .page,
-.page > .beforeBody,
-.sidebar.left {
-  outline: 3px solid red !important;
-  outline-offset: -3px;
-}
-
-/* 给不同元素不同颜色，便于区分 */
-.beforeBody {
-  outline-color: lime !important;
-}
-.sidebar.left {
-  outline-color: cyan !important;
-}
-.page-header,
-header {
-  outline-color: red !important;
+/* 让正文区贴紧顶部 */
+.page > #quartz-body > .center {
+  margin-top: 1rem !important; 
 }
