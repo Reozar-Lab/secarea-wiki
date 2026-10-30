@@ -22,18 +22,17 @@ body {
 }
 
 /* =========================================
-   3. 隐藏暗黑模式按钮（由主站统一控制）
+   3. 工具栏重排：精准使用 data-component 属性
    ========================================= */
-.beforeBody > .darkmode,
-.beforeBody .darkmode {
+/* 隐藏暗黑模式按钮 */
+[data-component="darkmode"] {
   display: none !important;
 }
 
-/* =========================================
-   4. 工具栏重排：搜索框 + 阅读模式排一行
-   ========================================= */
+/* 强制 beforeBody 变成水平弹性盒 */
 .beforeBody {
   display: flex !important;
+  flex-direction: row !important;
   flex-wrap: wrap !important;
   align-items: center !important;
   gap: 12px !important;
@@ -41,34 +40,32 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* 搜索框：自适应宽度，但限死最大宽度，让阅读模式跟上来 */
-.beforeBody > .search,
-.beforeBody .search-container {
-  flex: 1 1 150px !important; 
-  max-width: 250px !important; 
+/* 搜索框：自适应宽度，限死最大宽度，把位置让出来 */
+[data-component="search"] {
+  flex: 1 1 0% !important;
+  min-width: 100px !important;
+  max-width: 250px !important;
 }
 
-/* 阅读模式：固定大小，紧贴着搜索框右侧 */
-.beforeBody > .readermode,
-.beforeBody .readermode {
+/* 阅读模式：固定大小，不拉伸 */
+[data-component="reader-mode"] {
   flex: 0 0 auto !important;
   display: inline-flex !important;
   align-items: center !important;
-  margin-left: -4px; /* 视觉上更紧凑 */
 }
 
-/* 强制文章标题和日期换行，排在工具栏正下方 */
+/* 强制文章标题和日期换行，占据整行 */
 .beforeBody > .article-title,
 .beforeBody > .content-meta,
-.beforeBody .article-title,
-.beforeBody .content-meta {
+[data-component="article-title"],
+[data-component="content-meta"] {
   flex: 1 1 100% !important;
   width: 100% !important;
   margin-top: 0.5rem !important;
 }
 
 /* =========================================
-   5. 图标颜色与 Hover 效果
+   4. 图标颜色与 Hover 效果
    ========================================= */
 .beforeBody svg, 
 .beforeBody button {
