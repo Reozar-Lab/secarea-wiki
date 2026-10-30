@@ -1,84 +1,51 @@
 /* =========================================
-   1. 彻底移除真·header（兜底）
+   【测试专用】请替换原来的 custom.scss
+   取消所有隐藏，加上彩色边框看结构
    ========================================= */
-header {
-  display: none !important;
+
+/* 1. 给各大结构上色，方便看清谁是谁 */
+header { 
+  border: 3px solid red !important; 
+  min-height: 20px;
 }
 
-/* =========================================
-   2. 去除青框（移动端左侧栏顶部触发区/汉堡菜单）
-   ========================================= */
-/* 隐藏移动端左栏的触发按钮、占位符、以及可能的标题 */
-.sidebar.left > button,
-.sidebar.left > .explorer > button,
-.sidebar.left > .explorer > .mobile-only,
-.sidebar.left > .spacer {
-  display: none !important;
+#quartz-body { 
+  border: 3px solid blue !important; 
+  min-height: 100px;
 }
 
-/* =========================================
-   3. 重排红框内容（保留搜索、暗黑、阅读、标题）
-   ========================================= */
-/* 将 beforeBody 设为弹性布局，允许换行 */
-.beforeBody {
-  display: flex !important;
-  flex-wrap: wrap !important;
+.beforeBody { 
+  border: 3px solid lime !important; 
+  display: flex !important; 
+  flex-direction: row !important; 
+  flex-wrap: wrap !important; 
   align-items: center !important;
-  gap: 12px !important;
-  padding: 1rem 1.5rem !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  gap: 10px !important;
+  padding: 10px !important;
 }
 
-/* 限制搜索框宽度，让它不要独占一行，从而让右边的图标能跟上 */
+.sidebar.left { 
+  border: 3px solid cyan !important; 
+  min-height: 20px;
+}
+
+.page, .center { 
+  border: 2px dashed orange !important; 
+  min-height: 50px;
+}
+
+/* 2. 强制搜索框别独占整行 */
 .beforeBody .search {
-  flex: 1 1 150px !important;
-  max-width: 250px !important; 
+  flex: 0 1 200px !important; /* 不要无限放大 */
 }
 
-/* 暗黑模式和阅读模式的按钮容器 */
-.beforeBody .darkmode,
-.beforeBody .readermode {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-/* 图标颜色与 Hover 效果（适配你的黑金主题） */
-.beforeBody svg, 
-.beforeBody button {
-  color: #f5d78d !important;
-  opacity: 0.8;
-  transition: opacity 0.2s;
-}
-.beforeBody svg:hover, 
-.beforeBody button:hover {
-  opacity: 1;
-}
-:root[saved-theme="light"] .beforeBody svg, 
-:root[saved-theme="light"] .beforeBody button {
-  color: #c89f5d !important;
-}
-:root[saved-theme="light"] .beforeBody {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-/* 强制文章标题和日期换行，占据 100% 宽度，排在按钮下面 */
-.beforeBody .article-title,
-.beforeBody .content-meta {
+/* 3. 强制标题和日期换行 */
+.beforeBody > .article-title,
+.beforeBody > .content-meta {
   flex: 1 1 100% !important;
   width: 100% !important;
-  margin-top: 0.5rem !important;
 }
 
-/* =========================================
-   4. 取消正文顶部的多余留白
-   ========================================= */
-#quartz-body {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-/* 让正文区贴紧顶部 */
-.page > #quartz-body > .center {
-  margin-top: 1rem !important; 
-}
+/* 取消之前的隐藏，全部显示出来 */
+.beforeBody * { display: block !important; }
+.beforeBody .search { display: inline-block !important; }
