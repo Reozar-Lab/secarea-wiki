@@ -1,13 +1,7 @@
 /* =========================================
-   1. 抹平顶部自带的 header 视觉
+   1. 彻底移除顶部自带的 header
    ========================================= */
 header {
-  background-color: transparent !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
-}
-
-header .page-title {
   display: none !important;
 }
 
