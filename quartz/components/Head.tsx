@@ -104,6 +104,57 @@ export default (() => {
             return resource
           }
         })}
+
+        {/* =========================================
+            注入跨域通信脚本 (主站联动核心)
+            ========================================= */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              document.addEventListener("DOMContentLoaded", () => {
+                // 1. 滚动节流监听器
+                let isScrolling = false;
+                window.addEventListener("scroll", () => {
+                  if (!isScrolling) {
+                    window.requestAnimationFrame(() => {
+                      if (window.parent && window.parent !== window) {
+                        window.parent.postMessage({ type: 'wiki_scroll', scrollY: window.scrollY }, '*');
+                      }
+                      isScrolling = false;
+                    });
+                    isScrolling = true;
+                  }
+                });
+
+                // 2. 拦截汉堡菜单按钮
+                const interceptMenu = () => {
+                  // Quartz 侧边栏菜单按钮通常在 .explorer-toggle 里
+                  const menuBtn = document.querySelector('.explorer-toggle') || document.querySelector('.mobile-explorer-toggle');
+                  
+                  if (menuBtn) {
+                    // 克隆并替换，确保清除 Quartz 原生的事件监听
+                    const newMenuBtn = menuBtn.cloneNode(true);
+                    menuBtn.parentNode.replaceChild(newMenuBtn, menuBtn);
+                    
+                    newMenuBtn.addEventListener('click', (e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      // 通知主站滑出侧边栏
+                      if (window.parent && window.parent !== window) {
+                        window.parent.postMessage('open_main_menu', '*');
+                      }
+                    });
+                  } else {
+                    // 如果还没渲染出来，500ms 后重试
+                    setTimeout(interceptMenu, 500);
+                  }
+                };
+                
+                setTimeout(interceptMenu, 300);
+              });
+            `,
+          }}
+        />
       </head>
     )
   }
