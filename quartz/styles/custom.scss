@@ -1,112 +1,52 @@
 /* =========================================
-   1. 彻底删除底部栏 (Footer)
-   ========================================= */
-footer {
-  display: none !important;
-}
-
-/* =========================================
-   2. 解除顶部栏固定，让它随页面自然滚动
+   1. 抹平顶部自带的 header 视觉
    ========================================= */
 header {
-  /* 暴力解除固定定位，让它变成普通文档流 */
-  position: relative !important;
-  top: auto !important;
-  transform: none !important;
-  
-  /* 背景和边框透明，让它融入主站顶栏下方 */
   background-color: transparent !important;
   border-bottom: none !important;
   box-shadow: none !important;
-  
-  /* 排版：把按钮整齐排列，并留出顶部空间（防止被主站顶栏挡住） */
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  justify-content: flex-end !important; /* 图标全部靠右 */
-  gap: 16px !important;
-  
-  /* 顶部留白 60px（主站顶栏高度56px + 4px缓冲） */
-  padding: 70px 16px 10px 16px !important; 
-  height: auto !important;
 }
 
-/* 隐藏不需要的标题和原生汉堡菜单 */
-header .page-title,
-header .explorer-toggle,
-header .mobile-explorer-toggle {
+header .page-title {
   display: none !important;
 }
 
-/* 强制显示搜索、暗黑、阅读模式，并设置图标颜色 */
-header .toolbar, 
-header .search, 
-header .darkmode, 
-header .reader-mode {
+/* =========================================
+   2. 美化正文前的工具栏 (beforeBody)
+   ========================================= */
+.beforeBody {
   display: flex !important;
+  flex-direction: row !important;
   align-items: center !important;
-  gap: 16px !important;
-  margin: 0 !important;
+  gap: 20px !important;
+  padding: 1.2rem 1.5rem !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-header svg, header button {
-  color: #f5d78d !important; /* 暗黑模式下金色 */
+.beforeBody svg, 
+.beforeBody button {
+  color: #f5d78d !important;
+  opacity: 0.8;
+  transition: opacity 0.2s;
 }
-:root[saved-theme="light"] header svg, 
-:root[saved-theme="light"] header button {
-  color: #c89f5d !important; /* 明亮模式下暗金色 */
+
+.beforeBody svg:hover, 
+.beforeBody button:hover {
+  opacity: 1;
+}
+
+:root[saved-theme="light"] .beforeBody svg, 
+:root[saved-theme="light"] .beforeBody button {
+  color: #c89f5d !important;
+}
+:root[saved-theme="light"] .beforeBody {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 /* =========================================
-   3. 重新排版正文区域
+   3. 取消正文顶部的留白
    ========================================= */
 #quartz-body {
-  padding-top: 0 !important;
   margin-top: 0 !important;
-}
-
-/* =========================================
-   4. 修复你的悬浮球样式
-   ========================================= */
-#quartz-float-menu {
-  position: fixed;
-  bottom: 30px;
-  right: 20px;
-  width: 44px;
-  height: 44px;
-  background-color: rgba(37, 37, 37, 0.6); /* 稍微加深点透明度，防止看不见 */
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: #f5d78d;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  font-weight: bold;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  z-index: 9999;
-  cursor: pointer;
-  
-  /* 默认隐藏 */
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(10px) scale(0.9);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* 滑动后浮现的状态 */
-#quartz-float-menu.show {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0) scale(1);
-}
-
-#quartz-float-menu:active {
-  transform: scale(0.9);
-}
-
-:root[saved-theme="light"] #quartz-float-menu {
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #c89f5d;
+  padding-top: 0 !important;
 }
