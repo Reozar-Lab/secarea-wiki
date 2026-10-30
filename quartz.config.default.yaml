@@ -150,11 +150,13 @@ plugins:
       position: beforeBody
       priority: 12
   # ====================================================
+  # ======== 核心修改区：禁用 page-title（ban 掉 header）========
   - source: "@quartz-community/page-title"
-    enabled: true
+    enabled: false
     layout:
       position: header
       priority: 10
+  # ====================================================
   - source: "@quartz-community/backlinks"
     enabled: true
     layout:
@@ -258,16 +260,25 @@ layout:
         beforeBody: []
         left: []
         right: []
-    content: {}
+        header: []
+    content:
+      positions:
+        header: []
     folder:
       exclude:
         - reader-mode
       positions:
         right: []
+        header: []
     tag:
       exclude:
         - reader-mode
       positions:
         right: []
-    canvas: {}
-    bases: {}
+        header: []
+    canvas:
+      positions:
+        header: []
+    bases:
+      positions:
+        header: []
