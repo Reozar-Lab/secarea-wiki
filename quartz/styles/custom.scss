@@ -1,33 +1,103 @@
-/* 彻底隐藏 Quartz 的头部视觉元素，因为主站顶栏已经悬浮在上面了 */
+/* =========================================
+   1. 解决顶部栏固定与排版问题
+   ========================================= */
 header {
+  /* 改为相对定位，让它跟随页面滚动，而不是固定在最上层 */
+  position: relative !important;
+  top: auto !important;
+  
+  /* 主站顶栏已经占了 56px，所以这里的 padding 要控制好 */
+  padding-top: 60px !important; 
+  padding-bottom: 10px !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  
   background-color: transparent !important;
   border-bottom: none !important;
-  box-shadow: none !important;
-  height: 56px !important;
-  /* 把图标向右推，刚好对齐主站菜单按钮的左侧 */
+  
   display: flex !important;
-  justify-content: flex-end !important;
-  padding-right: 60px !important; 
-  pointer-events: none; /* 让主站顶栏的点击穿透下来 */
+  justify-content: flex-start !important; /* 靠左显示 */
+  gap: 16px !important; 
 }
 
-header .page-title,
+/* 隐藏标题 */
+header .page-title {
+  display: none !important;
+}
+
+/* 隐藏 Quartz 左上角的原汉堡菜单 (因为我们会用主站的，或者用悬浮球) */
 header .explorer-toggle,
 header .mobile-explorer-toggle {
   display: none !important;
 }
 
-/* 只把搜索、月亮、阅读模式显示出来，并允许点击 */
-header .toolbar,
-header .search,
-header .darkmode,
+/* 解决按钮超出屏幕的问题 */
+header .toolbar, 
+header .search, 
+header .darkmode, 
 header .reader-mode {
-  pointer-events: auto; 
   display: flex !important;
-  gap: 12px !important;
+  align-items: center !important;
+  gap: 16px !important;
+  margin: 0 !important;
 }
 
-/* 解决正文被顶部遮挡 */
+header svg, header button {
+  color: #f5d78d !important;
+}
+:root[saved-theme="light"] header svg, 
+:root[saved-theme="light"] header button {
+  color: #c89f5d !important;
+}
+
+/* 取消正文顶部的 padding，自然跟随 */
 #quartz-body {
-  padding-top: 56px !important; 
+  margin-top: 0 !important;
+}
+
+/* =========================================
+   2. 悬浮球样式 (低透明度圆按钮)
+   ========================================= */
+#quartz-float-menu {
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  background-color: rgba(37, 37, 37, 0.4); /* 低透明度深色 */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #f5d78d;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 9999;
+  cursor: pointer;
+  
+  /* 默认隐藏，向下滑动浮现 */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px) scale(0.9);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#quartz-float-menu.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+#quartz-float-menu:active {
+  transform: scale(0.9);
+  background-color: rgba(37, 37, 37, 0.7);
+}
+
+:root[saved-theme="light"] #quartz-float-menu {
+  background-color: rgba(255, 255, 255, 0.6);
+  color: #c89f5d;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
