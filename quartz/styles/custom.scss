@@ -1,7 +1,6 @@
 /* =========================================
    1. 避开主站顶栏（完美解决遮挡与黑边）
    ========================================= */
-/* 彻底隐藏 Wiki 自带 header 和留白 */
 header {
   display: none !important;
 }
@@ -9,16 +8,12 @@ header {
   margin-top: 0 !important;
   padding-top: 0 !important;
 }
-
-/* 核心：将整个 Wiki 页面向下推 56px（主站顶栏高度）。
-   因为 padding 属于 body，Wiki 的底色会向上延伸填满，
-   主站滑动隐藏顶栏时，底色无缝衔接，绝不会出现黑边。 */
 body {
   padding-top: 56px !important; 
 }
 
 /* =========================================
-   2. 左侧栏在移动端隐藏（去掉多余的汉堡菜单）
+   2. 左侧栏在移动端隐藏
    ========================================= */
 @media (max-width: 800px) {
   .sidebar.left {
@@ -27,7 +22,15 @@ body {
 }
 
 /* =========================================
-   3. 工具栏重排：搜索、图标排一行，标题排下面
+   3. 隐藏暗黑模式按钮（由主站统一控制）
+   ========================================= */
+.beforeBody > .darkmode,
+.beforeBody .darkmode {
+  display: none !important;
+}
+
+/* =========================================
+   4. 工具栏重排：搜索框 + 阅读模式排一行
    ========================================= */
 .beforeBody {
   display: flex !important;
@@ -38,21 +41,20 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* 限制搜索框最大宽度，留出空间给右侧图标 */
+/* 搜索框：自适应宽度，但限死最大宽度，让阅读模式跟上来 */
 .beforeBody > .search,
 .beforeBody .search-container {
   flex: 1 1 150px !important; 
   max-width: 250px !important; 
 }
 
-/* 确保暗黑模式和阅读模式图标在同一行 */
-.beforeBody > .darkmode,
+/* 阅读模式：固定大小，紧贴着搜索框右侧 */
 .beforeBody > .readermode,
-.beforeBody .darkmode,
 .beforeBody .readermode {
   flex: 0 0 auto !important;
   display: inline-flex !important;
   align-items: center !important;
+  margin-left: -4px; /* 视觉上更紧凑 */
 }
 
 /* 强制文章标题和日期换行，排在工具栏正下方 */
@@ -66,7 +68,7 @@ body {
 }
 
 /* =========================================
-   4. 图标颜色与 Hover 效果（适配黑金主题）
+   5. 图标颜色与 Hover 效果
    ========================================= */
 .beforeBody svg, 
 .beforeBody button {
