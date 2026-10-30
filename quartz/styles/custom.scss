@@ -1,86 +1,63 @@
 /* =========================================
-   1. 避开主站顶栏（完美解决遮挡与黑边）
+   【布局测试版】带彩色边框，排查真实结构
    ========================================= */
-header {
-  display: none !important;
-}
-#quartz-body {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-body {
-  padding-top: 56px !important; 
-}
 
-/* =========================================
-   2. 左侧栏在移动端隐藏
-   ========================================= */
+/* 隐藏原有 header 和避开主站顶栏 */
+header { display: none !important; }
+#quartz-body { margin-top: 0 !important; padding-top: 0 !important; }
+body { padding-top: 56px !important; }
+
 @media (max-width: 800px) {
-  .sidebar.left {
-    display: none !important;
-  }
+  .sidebar.left { display: none !important; }
 }
+
+/* 隐藏暗黑按钮 */
+[data-component="darkmode"], .darkmode { display: none !important; }
 
 /* =========================================
-   3. 工具栏重排：精准使用 data-component 属性
+   核心测试区：强制单行排列并标出边框
    ========================================= */
-/* 隐藏暗黑模式按钮 */
-[data-component="darkmode"] {
-  display: none !important;
-}
-
-/* 强制 beforeBody 变成水平弹性盒 */
 .beforeBody {
   display: flex !important;
   flex-direction: row !important;
-  flex-wrap: wrap !important;
+  flex-wrap: nowrap !important; /* 强制绝不换行 */
   align-items: center !important;
-  gap: 12px !important;
-  padding: 1rem 1.5rem !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  justify-content: flex-start !important;
+  gap: 10px !important;
+  padding: 10px !important;
+  border: 2px solid magenta !important; /* 紫红色大外框 */
+  width: 100% !important;
+  overflow-x: auto !important; /* 如果放不下，允许横向滚动 */
 }
 
-/* 搜索框：自适应宽度，限死最大宽度，把位置让出来 */
+/* 给所有直接子元素加上青色虚线框 */
+.beforeBody > * {
+  border: 2px dashed cyan !important;
+  padding: 2px !important;
+  margin: 0 !important;
+  flex: 0 0 auto !important; /* 默认不许伸缩 */
+}
+
+/* 精准定位搜索框：黄色边框 */
+.beforeBody > .search,
+.beforeBody .search-container,
 [data-component="search"] {
-  flex: 1 1 0% !important;
-  min-width: 100px !important;
-  max-width: 250px !important;
+  border-color: yellow !important;
+  flex: 1 1 100px !important; /* 允许适度伸缩 */
+  max-width: 200px !important; /* 限制最大宽度 */
 }
 
-/* 阅读模式：固定大小，不拉伸 */
-[data-component="reader-mode"] {
-  flex: 0 0 auto !important;
-  display: inline-flex !important;
-  align-items: center !important;
-}
-
-/* 强制文章标题和日期换行，占据整行 */
+/* 强制标题和日期换行：红色边框 */
 .beforeBody > .article-title,
 .beforeBody > .content-meta,
 [data-component="article-title"],
 [data-component="content-meta"] {
   flex: 1 1 100% !important;
   width: 100% !important;
-  margin-top: 0.5rem !important;
+  border-color: red !important;
 }
 
-/* =========================================
-   4. 图标颜色与 Hover 效果
-   ========================================= */
-.beforeBody svg, 
-.beforeBody button {
+/* 图标颜色恢复 */
+.beforeBody svg, .beforeBody button {
   color: #f5d78d !important;
-  opacity: 0.8;
-  transition: opacity 0.2s;
-}
-.beforeBody svg:hover, 
-.beforeBody button:hover {
-  opacity: 1;
-}
-:root[saved-theme="light"] .beforeBody svg, 
-:root[saved-theme="light"] .beforeBody button {
-  color: #c89f5d !important;
-}
-:root[saved-theme="light"] .beforeBody {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
