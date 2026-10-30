@@ -1,58 +1,33 @@
-/* =========================================
-   1. 彻底干掉原有的顶栏视觉，变成透明
-   ========================================= */
+/* 彻底隐藏 Quartz 的头部视觉元素，因为主站顶栏已经悬浮在上面了 */
 header {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 56px !important;
-  z-index: 100 !important;
-  
-  /* 背景透明，让主站的黑金顶栏透出来 */
-  background-color: transparent !important; 
+  background-color: transparent !important;
   border-bottom: none !important;
-  
+  box-shadow: none !important;
+  height: 56px !important;
+  /* 把图标向右推，刚好对齐主站菜单按钮的左侧 */
   display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  justify-content: flex-end !important; /* 工具栏靠右 */
-  padding: 0 16px !important;
+  justify-content: flex-end !important;
+  padding-right: 60px !important; 
+  pointer-events: none; /* 让主站顶栏的点击穿透下来 */
 }
 
-/* =========================================
-   2. 隐藏 Quartz 的标题和原生汉堡菜单
-   ========================================= */
-header .page-title {
-  display: none !important;
-}
+header .page-title,
 header .explorer-toggle,
 header .mobile-explorer-toggle {
-  display: none !important; /* 我们已经在 Head.tsx 里拦截了，这里直接隐藏 */
+  display: none !important;
 }
 
-/* =========================================
-   3. 把搜索、月亮等插件钉在右上角，与主站图标对齐
-   ========================================= */
-header .toolbar, 
-header .search, 
-header .darkmode, 
+/* 只把搜索、月亮、阅读模式显示出来，并允许点击 */
+header .toolbar,
+header .search,
+header .darkmode,
 header .reader-mode {
+  pointer-events: auto; 
   display: flex !important;
-  align-items: center !important;
-  gap: 16px !important;
-  margin: 0 !important;
-  margin-right: 48px !important; /* 留出主站菜单按钮的位置 */
+  gap: 12px !important;
 }
 
-header svg, header button {
-  color: #f5d78d !important;
-}
-
-/* =========================================
-   4. 取消正文顶部的 padding，让文章直接顶到主站顶栏下面
-   ========================================= */
+/* 解决正文被顶部遮挡 */
 #quartz-body {
-  padding-top: 0 !important;
-  margin-top: 56px !important; /* 为顶栏留出空间 */
+  padding-top: 56px !important; 
 }
