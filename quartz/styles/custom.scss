@@ -1,51 +1,65 @@
 /* =========================================
-   【测试专用】请替换原来的 custom.scss
-   取消所有隐藏，加上彩色边框看结构
+   1. 干掉青框（手机端左侧栏的汉堡菜单）
    ========================================= */
-
-/* 1. 给各大结构上色，方便看清谁是谁 */
-header { 
-  border: 3px solid red !important; 
-  min-height: 20px;
+/* 在移动端，直接隐藏整个左侧边栏，不再显示顶部那个 ☰ 按钮 */
+@media (max-width: 800px) {
+  .sidebar.left {
+    display: none !important;
+  }
 }
 
-#quartz-body { 
-  border: 3px solid blue !important; 
-  min-height: 100px;
-}
-
-.beforeBody { 
-  border: 3px solid lime !important; 
-  display: flex !important; 
-  flex-direction: row !important; 
-  flex-wrap: wrap !important; 
+/* =========================================
+   2. 重排红框（搜索、图标排一行，标题排下面）
+   ========================================= */
+.beforeBody {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
   align-items: center !important;
-  gap: 10px !important;
-  padding: 10px !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  padding: 1rem 0 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.sidebar.left { 
-  border: 3px solid cyan !important; 
-  min-height: 20px;
+/* 让所有的直接子元素不要默认拉伸 */
+.beforeBody > * {
+  flex: 0 0 auto !important;
 }
 
-.page, .center { 
-  border: 2px dashed orange !important; 
-  min-height: 50px;
+/* 限制搜索框宽度，让它不要独占整行，从而让右边的图标跟上来 */
+.beforeBody > .search,
+.beforeBody .search-container {
+  flex: 0 1 150px !important; 
+  max-width: 150px !important;
 }
 
-/* 2. 强制搜索框别独占整行 */
-.beforeBody .search {
-  flex: 0 1 200px !important; /* 不要无限放大 */
-}
-
-/* 3. 强制标题和日期换行 */
+/* 强制文章标题和日期换行，占据 100% 宽度，排在工具栏下面 */
 .beforeBody > .article-title,
-.beforeBody > .content-meta {
+.beforeBody > .content-meta,
+.beforeBody .article-title,
+.beforeBody .content-meta {
   flex: 1 1 100% !important;
   width: 100% !important;
+  margin-top: 0.5rem !important;
 }
 
-/* 取消之前的隐藏，全部显示出来 */
-.beforeBody * { display: block !important; }
-.beforeBody .search { display: inline-block !important; }
+/* 优化一下图标颜色 */
+.beforeBody svg, 
+.beforeBody button {
+  color: #f5d78d !important;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.beforeBody svg:hover, 
+.beforeBody button:hover {
+  opacity: 1;
+}
+
+/* =========================================
+   3. 抹平顶部多余留白
+   ========================================= */
+#quartz-body {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
