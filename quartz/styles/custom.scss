@@ -1,3 +1,73 @@
-@use "./variables.scss" as *;
+/* =========================================
+   顶部栏 (Header) 黑金定制化
+   ========================================= */
 
-// put your custom CSS here!
+/* 顶部栏容器 */
+header {
+  background-color: #252525 !important; 
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding: 0.6rem 1rem !important;
+  
+  /* 强制顶部元素水平排布 */
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: 56px !important; /* 与主站高度对齐 */
+}
+
+/* 顶部栏的图标和文字统一变成金色 */
+header svg, 
+header a, 
+header button,
+header .search-button {
+  color: #f5d78d !important;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+header svg:hover, 
+header a:hover,
+header button:hover {
+  opacity: 1;
+}
+
+/* 左上角标题质感 */
+header .page-title {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-weight: 900 !important;
+  letter-spacing: 1px !important;
+  font-size: 1.1rem !important;
+  color: #f5d78d !important;
+  margin: 0 !important;
+}
+
+/* 调整右侧工具栏图标间距 */
+header .toolbar {
+  display: flex !important;
+  gap: 12px !important;
+  align-items: center !important;
+}
+
+/* =========================================
+   明亮模式适配 (Light Mode)
+   ========================================= */
+:root[saved-theme="light"] header {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e5e5e5 !important;
+}
+
+:root[saved-theme="light"] header svg,
+:root[saved-theme="light"] header a,
+:root[saved-theme="light"] header button,
+:root[saved-theme="light"] header .page-title {
+  color: #c89f5d !important; /* 亮色下使用略深的金色 */
+}
+
+/* =========================================
+   全局背景与排版微调
+   ========================================= */
+/* 暗黑模式背景与主站统一 */
+:root[saved-theme="dark"] {
+  --light: #141414 !important;
+}
