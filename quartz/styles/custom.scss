@@ -1,12 +1,20 @@
 /* =========================================
-   1. 彻底移除 Wiki 自带的多余 header 和留白
+   1. 避开主站顶栏（完美解决遮挡与黑边）
    ========================================= */
+/* 彻底隐藏 Wiki 自带 header 和留白 */
 header {
   display: none !important;
 }
 #quartz-body {
   margin-top: 0 !important;
   padding-top: 0 !important;
+}
+
+/* 核心：将整个 Wiki 页面向下推 56px（主站顶栏高度）。
+   因为 padding 属于 body，Wiki 的底色会向上延伸填满，
+   主站滑动隐藏顶栏时，底色无缝衔接，绝不会出现黑边。 */
+body {
+  padding-top: 56px !important; 
 }
 
 /* =========================================
@@ -30,14 +38,14 @@ header {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* 核心调整：搜索框占满剩余空间，但不独占整行，让出位置给右侧图标 */
+/* 限制搜索框最大宽度，留出空间给右侧图标 */
 .beforeBody > .search,
 .beforeBody .search-container {
   flex: 1 1 150px !important; 
   max-width: 250px !important; 
 }
 
-/* 暗黑模式与阅读模式图标：固定大小，不换行 */
+/* 确保暗黑模式和阅读模式图标在同一行 */
 .beforeBody > .darkmode,
 .beforeBody > .readermode,
 .beforeBody .darkmode,
@@ -47,7 +55,7 @@ header {
   align-items: center !important;
 }
 
-/* 强制文章标题和日期换行，占据整行，排在工具栏正下方 */
+/* 强制文章标题和日期换行，排在工具栏正下方 */
 .beforeBody > .article-title,
 .beforeBody > .content-meta,
 .beforeBody .article-title,
