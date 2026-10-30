@@ -123,7 +123,6 @@ plugins:
     enabled: true
   - source: "@quartz-community/tag-page"
     enabled: true
-  # 目录树保持在左侧，手机上会自动变成左上角的汉堡菜单
   - source: "@quartz-community/explorer"
     enabled: true
     layout:
@@ -134,28 +133,28 @@ plugins:
     layout:
       position: right
       priority: 10
-  # ======== 顶部栏改造区 ========
+  # ======== 核心修改区：移到正文前，随页面滚动 ========
   - source: "@quartz-community/search"
     enabled: true
     layout:
-      position: header
-      priority: 20
+      position: beforeBody
+      priority: 10
   - source: "@quartz-community/darkmode"
     enabled: true
     layout:
-      position: header
-      priority: 30
+      position: beforeBody
+      priority: 11
   - source: "@quartz-community/reader-mode"
     enabled: true
     layout:
-      position: header
-      priority: 35
+      position: beforeBody
+      priority: 12
+  # ====================================================
   - source: "@quartz-community/page-title"
     enabled: true
     layout:
       position: header
       priority: 10
-  # ==============================
   - source: "@quartz-community/backlinks"
     enabled: true
     layout:
@@ -165,17 +164,17 @@ plugins:
     enabled: true
     layout:
       position: beforeBody
-      priority: 10
+      priority: 20
   - source: "@quartz-community/content-meta"
     enabled: true
     layout:
       position: beforeBody
-      priority: 20
+      priority: 30
   - source: "@quartz-community/tag-list"
     enabled: false
     layout:
       position: beforeBody
-      priority: 30
+      priority: 40
   - source: "@quartz-community/breadcrumbs"
     enabled: true
     layout:
