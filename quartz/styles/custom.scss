@@ -44,3 +44,30 @@ header {
   margin-top: 0 !important;
   padding-top: 0 !important;
 }
+
+/* =========================================
+   4. 【诊断用】红框标记，定位完请删除本段
+   ========================================= */
+header,
+.page-header,
+#quartz-body > header,
+#quartz-body > .page-header,
+.beforeBody,
+#quartz-body > .page,
+.page > .beforeBody,
+.sidebar.left {
+  outline: 3px solid red !important;
+  outline-offset: -3px;
+}
+
+/* 给不同元素不同颜色，便于区分 */
+.beforeBody {
+  outline-color: lime !important;
+}
+.sidebar.left {
+  outline-color: cyan !important;
+}
+.page-header,
+header {
+  outline-color: red !important;
+}
