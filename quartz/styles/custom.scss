@@ -22,7 +22,15 @@ body {
 }
 
 /* =========================================
-   3. 图标颜色与 Hover 效果（适配黑金主题）
+   3. 隐藏暗黑模式按钮（由主站统一控制）
+   ========================================= */
+[data-component="darkmode"], 
+.darkmode {
+  display: none !important;
+}
+
+/* =========================================
+   4. 图标颜色适配黑金主题
    ========================================= */
 .beforeBody svg, 
 .beforeBody button {
@@ -37,4 +45,60 @@ body {
 :root[saved-theme="light"] .beforeBody svg, 
 :root[saved-theme="light"] .beforeBody button {
   color: #c89f5d !important;
+}
+
+/* =========================================
+   5. 正文排版精细调整（字体大小、链接、列表）
+   ========================================= */
+
+/* 缩小整体正文字号 */
+article, 
+.markdown-rendered,
+.center {
+  font-size: 14.5px !important; 
+  line-height: 1.75 !important;
+}
+
+/* 标题字号同步微调，保持层级不突兀 */
+article h1, .markdown-rendered h1 { font-size: 1.8rem !important; margin-top: 1.5rem !important; }
+article h2, .markdown-rendered h2 { font-size: 1.4rem !important; margin-top: 1.2rem !important; }
+article h3, .markdown-rendered h3 { font-size: 1.2rem !important; }
+
+/* 链接去粗体 */
+article a, 
+.markdown-rendered a, 
+a.internal, 
+a.external {
+  font-weight: normal !important; 
+  text-decoration: none !important;
+  color: #c89f5d !important; /* 使用你的主题金色 */
+}
+
+/* 适配暗黑模式下的链接颜色 */
+:root[saved-theme="dark"] article a,
+:root[saved-theme="dark"] .markdown-rendered a,
+:root[saved-theme="dark"] a.internal,
+:root[saved-theme="dark"] a.external {
+  color: #f5d78d !important;
+}
+
+/* WikiMedia 风格：列表分条自动换行与留白 */
+article ul, 
+.markdown-rendered ul,
+article ol,
+.markdown-rendered ol {
+  padding-left: 1.5rem !important;
+  margin-bottom: 1.2rem !important;
+}
+
+article li, 
+.markdown-rendered li {
+  margin-bottom: 0.6rem !important; /* 列表项之间的呼吸感 */
+  line-height: 1.7 !important;
+}
+
+/* 段落之间的间距稍微拉开一点 */
+article p,
+.markdown-rendered p {
+  margin-bottom: 1rem !important;
 }
