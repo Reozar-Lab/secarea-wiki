@@ -71,7 +71,32 @@ export default (() => {
           dangerouslySetInnerHTML={{
             __html: `
               document.addEventListener("DOMContentLoaded", () => {
-                // 1. 滚动信号发送
+                
+                // ================= 1. 跨域通信：向主站发送当前路径 =================
+                function sendCurrentPath() {
+                  let path = window.location.pathname;
+                  if (path === '/' || path.endsWith('/')) path += 'index';
+                  if (!path.endsWith('.md')) path += '.md';
+                  path = path.replace(/^\\//, ''); // 去掉开头的斜杠
+
+                  if (window.parent && window.parent !== window) {
+                    window.parent.postMessage({ type: 'wiki_path_change', path: path }, '*');
+                  }
+                }
+                
+                // 初始加载发送一次
+                sendCurrentPath();
+
+                // 监听 Quartz 内部路由变化（点击链接后的延时发送）
+                let lastPath = window.location.pathname;
+                setInterval(() => {
+                  if (window.location.pathname !== lastPath) {
+                    lastPath = window.location.pathname;
+                    sendCurrentPath();
+                  }
+                }, 500);
+
+                // ================= 2. 滚动信号发送 =================
                 let isScrolling = false;
                 window.addEventListener("scroll", () => {
                   if (!isScrolling) {
@@ -85,7 +110,7 @@ export default (() => {
                   }
                 });
 
-                // 2. 接收主站的暗黑模式
+                // ================= 3. 接收主站的暗黑模式 =================
                 window.addEventListener('message', (event) => {
                   if (event.data && event.data.type === 'main_darkmode') {
                     const isDark = event.data.isDark;
@@ -97,7 +122,7 @@ export default (() => {
                   }
                 });
 
-                // 3. 监听 Wiki 的暗黑按钮发给主站
+                // ================= 4. 监听 Wiki 的暗黑按钮发给主站 =================
                 const interceptDarkmode = () => {
                   const darkBtns = document.querySelectorAll('.darkmode');
                   darkBtns.forEach(btn => {
