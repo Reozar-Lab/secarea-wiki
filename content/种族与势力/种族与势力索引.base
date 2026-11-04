@@ -1,0 +1,16 @@
+filters:
+and:
+- file.inFolder("种族与势力")
+- file.ext == "md"
+- file.name != "index"
+
+views:
+- type: table
+name: 种族与势力词条
+order:
+- file.name
+- description
+- tags
+sort:
+- property: file.name
+direction: ASC

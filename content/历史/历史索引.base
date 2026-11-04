@@ -1,0 +1,16 @@
+filters:
+and:
+- file.inFolder("历史")
+- file.ext == "md"
+- file.name != "index"
+
+views:
+- type: table
+name: 历史词条
+order:
+- file.name
+- description
+- tags
+sort:
+- property: file.name
+direction: ASC
